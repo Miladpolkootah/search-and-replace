@@ -1,13 +1,17 @@
 function myReplace(str, before, after) {
-    var index = str.indexOf(before);
-    if (str[index] === str[index].toUpperCase()) {
-      after = after.charAt(0).toUpperCase() + after.slice(1);
-    } else {
-      after = after.charAt(0).toLowerCase() + after.slice(1);
-    }
-    str = str.replace(before, after);
-  
-    return str;
+  let myRegex = /^[A-Z]/;
+  let testBefore = myRegex.test(before);
+  let myArr = str.split(/\W+/);
+  let tru = myArr.indexOf(before);
+  if(testBefore){
+    let newAfter = after.replace(/^[^A-Z]/, after[0].toUpperCase());
+    myArr.splice(tru, 1, newAfter);
+    return myArr.join(' ');
+  }else{
+    let newAfter = after.replace(/^[^a-z]/, after[0].toLowerCase())
+    myArr.splice(tru, 1, newAfter);
+    return myArr.join(' ');
   }
-  
-  myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
+};
+
+console.log(myReplace("I think we should look up there", "up", "Down"));
